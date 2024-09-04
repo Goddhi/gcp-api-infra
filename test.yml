@@ -1,0 +1,31 @@
+
+# Note: Remember to automate the process of creating a role for the service account used by terrform
+
+# gcloud projects add-iam-policy-binding wide-axiom-428919-s0 \
+#   --member="serviceAccount:gcp-api-infrastructure@wide-axiom-428919-s0.iam.gserviceaccount.com" \
+#   --role="roles/"
+
+
+# gcloud projects add-iam-policy-binding &lt;project-name&gt; --member serviceAccount:&lt;service account name&gt;@&lt;project-name&gt;.iam.gserviceaccount.com --role roles/compute.admin                             
+# gcloud projects add-iam-policy-binding &lt;project-name&gt; --member serviceAccount:&lt;service account name&gt;@&lt;project-name&gt;.iam.gserviceaccount.com --role roles/iam.serviceAccountUser                             
+# gcloud projects add-iam-policy-binding &lt;project-name&gt; --member serviceAccount:&lt;service account name&gt;@&lt;project-name&gt;.iam.gserviceaccount.com --role roles/resourcemanager.projectIamAdmin                             
+# gcloud projects add-iam-policy-binding &lt;project-name&gt; --member serviceAccount:&lt;service account name&gt;@&lt;project-name&gt;.iam.gserviceaccount.com --role roles/container.clusterAdmin
+# gcloud projects add-iam-policy-binding &lt;project-name&gt; --member serviceAccount:&lt;service account name&gt;@&lt;project-name&gt;.iam.gserviceaccount.com --role roles/compute.viewer
+# gcloud projects add-iam-policy-binding &lt;project-name&gt; --member serviceAccount:&lt;service account name&gt;@&lt;project-name&gt;.iam.gserviceaccount.com --role roles/compute.securityAdmin
+# gcloud projects add-iam-policy-binding &lt;project-name&gt; --member serviceAccount:&lt;service account name&gt;@&lt;project-name&gt;.iam.gserviceaccount.com --role roles/container.developer
+# gcloud projects add-iam-policy-binding &lt;project-name&gt; --member serviceAccount:&lt;service account name&gt;@&lt;project-name&gt;.iam.gserviceaccount.com --role roles/iam.serviceAccountAdmin
+# gcloud projects add-iam-policy-binding &lt;project-name&gt; --member serviceAccount:&lt;service account name&gt;@&lt;project-name&gt;.iam.gserviceaccount.com --role roles/resourcemanager.projectIamAdmin
+
+
+
+
+
+
+# gcloud container clusters get-credentials gke-cluster-gcp-api-infrastructure --zone us-central1-a --project wide-axiom-428919-s0
+
+
+# gsutil iam ch serviceAccount:api-sc@wide-axiom-428919-s0.iam.gserviceaccount.com:legacyBucketWriter gs://gcp-api-infrastrtucture-bucket
+
+
+
+

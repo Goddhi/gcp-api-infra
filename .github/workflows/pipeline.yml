@@ -1,0 +1,126 @@
+name: 'Terraform and Go CI/CD'
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+
+  build_go_app:
+    name: 'Build Go App'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.23.0'
+
+      - name: Build Go Application
+        working-directory: ./app  # Navigate to the app directory
+        run: go build -o myapp .  # Adjust output binary name as needed
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and Push Docker Image
+        working-directory: ./app  # Navigate to the app directory
+        run: |
+          docker build -t myusername/myapp:${{ github.sha }} .
+          docker push myusername/myapp:${{ github.sha }}
+
+      - name: Update Terraform Variables with Image Name
+        run: |
+          echo "app-image = \"myusername/myapp:${{ github.sha }}\"" > ./terraform/terraform.auto.tfvars
+
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        working-directory: ./terraform
+        run: terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      - name: Terraform Plan
+        working-directory: ./terraform
+        run: terraform plan
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Terraform Apply
+        working-directory: ./terraform
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+      
+            # This step runs only if the job fails
+      - name: Cleanup (Destroy Resources on Failure)
+        if: failure()  # Only runs if the job fails
+        working-directory: ./terraform
+        run: terraform destroy -auto-approve
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+
+
+  verify_deployment:
+    name: 'Verify API Deployment'
+    runs-on: ubuntu-latest
+    needs: terraform  # Waits for Terraform job to complete
+
+    steps:
+      - name: Install Google Cloud SDK
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apt-transport-https ca-certificates gnupg
+          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+          sudo apt-get install -y google-cloud-sdk
+
+      - name: Install kubectl
+        run: |
+          sudo apt-get update && sudo apt-get install -y kubectl
+
+      - name: Authenticate with GCP
+        run: |
+          echo "${{ secrets.GCP_SA_KEY }}"  > $HOME/gcloud.json
+          gcloud auth activate-service-account --key-file=$HOME/gcloud.json
+          gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Get GKE Credentials
+        run: |
+          gcloud container clusters get-credentials ${{ vars.cluster_name }} --zone ${{ vars.cluster_zone_name }} --project ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Get External IP of API Service
+        run: |
+          export API_IP=$(kubectl get service gcp-api-infra-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+          echo "API IP: $API_IP"
+          echo "::set-output name=api_ip::$API_IP"
+        id: get_ip
+
+      # - name: Test API Health Endpoint
+      #   run: |
+      #     API_IP=${{ steps.get_ip.outputs.api_ip }}
+      #     curl -f http://$API_IP/health || exit 1
