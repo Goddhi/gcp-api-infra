@@ -130,11 +130,11 @@ variable "secondary_ip_range_pods_name" {
     description = " secondary ip range name for gke pods" 
 }
 
-variable "master_ipv4_cidr_block" {
-  type = string
-  description = "master ip adress"
+# variable "master_ipv4_cidr_block" {
+#   type = string
+#   description = "master ip adress"
   
-}
+# }
 variable "disk_type" {
   type = string
   description = "node disk type"
