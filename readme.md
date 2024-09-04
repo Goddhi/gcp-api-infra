@@ -30,3 +30,28 @@ cd terraform
 terraform init
 terraform plan
 terraform apply -auto-approve
+
+### Directory Structure
+##### terraform/: 
+This directory contains the main Terraform configuration files used to provision the infrastructure on GCP.
+
+#### main.tf:
+ The core Terraform file where the infrastructure resources (GKE cluster, VPC, etc.) are defined.
+#### output.tf:
+ Contains the output variables that export useful information, such as cluster details or network parameters, after the infrastructure is deployed.
+#### variable.tf: 
+Defines input variables that allow for flexibility and parameterization in the Terraform configuration. Key variables include:
+gke_service_account_id: The service account ID used for managing the GKE cluster.
+project: The GCP project ID where the infrastructure will be deployed.
+name: A general name used for resource identification.
+terraform.auto.tfvars: Stores default values for variables used in the configuration, such as the Docker image name for deployment.
+#### /vpc-network/: 
+This folder contains the Terraform files related to the Virtual Private Cloud (VPC) network setup.
+
+#### main.tf:
+ Defines the VPC, subnets, and necessary components for network management.
+#### firewall-rule.tf: 
+Configures firewall rules to control traffic to and from the network.
+nat-gateway.tf: Sets up Network Address Translation (NAT) for enabling instances without public IP addresses to access the internet.
+#### router.tf: 
+Defines  router configurations required for traffic within the VPC

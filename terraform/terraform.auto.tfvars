@@ -57,7 +57,7 @@ master_ipv4_cidr_block = "172.16.0.0/28"
 
 disk_type = "pd-standard"  
 
-disk_size_gb = 20
+disk_size_gb = 30
 
 min_node_count = 1
 
