@@ -161,10 +161,10 @@ variable "authorized-net-cidr" {
   description = "master_authorized_networks_config cidr"
 }
 
-variable "authorized-net-name" {
-    type = string
-  description = "master_authorized_networks_config name" 
-}
+# variable "authorized-net-name" {
+#     type = string
+#   description = "master_authorized_networks_config name" 
+# }
 
 variable "namespace-name" {
     type = string
