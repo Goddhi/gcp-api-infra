@@ -22,10 +22,10 @@ module "vpc-network" {
   internal-firewall-rule-name = var.internal-firewall-rule-name
   private-subnet-name = var.private-subnet-name
   nat_gateway = var.nat_gateway
-  secondary_ip_range_services_cidr = var.secondary_ip_range_services_cidr
-  secondary_ip_range_pods_cidr = var.secondary_ip_range_pods_cidr
-  secondary_ip_range_services_name = var.secondary_ip_range_services_name
-  secondary_ip_range_pods_name = var.secondary_ip_range_pods_name
+  # secondary_ip_range_services_cidr = var.secondary_ip_range_services_cidr
+  # secondary_ip_range_pods_cidr = var.secondary_ip_range_pods_cidr
+  # secondary_ip_range_services_name = var.secondary_ip_range_services_name
+  # secondary_ip_range_pods_name = var.secondary_ip_range_pods_name
   
   
   
