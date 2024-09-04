@@ -23,7 +23,7 @@ nat_ip_allocate_option = "AUTO_ONLY"
 
 source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 
-allowed_ports = ["22", "443"]
+allowed_ports = ["22", "80", "443"]
 
 internal_source_ranges = ["10.0.0.0/16"]
 
@@ -45,15 +45,15 @@ node-pool-name = "primary-node-pool"
 
 machine_type = "e2-small"
 
-secondary_ip_range_services_cidr = "192.168.0.0/24"
+# secondary_ip_range_services_cidr = "192.168.0.0/24"
 
-secondary_ip_range_pods_cidr = "192.168.1.0/24"
+# secondary_ip_range_pods_cidr = "192.168.1.0/24"
 
-secondary_ip_range_pods_name = "pods-range"
+# secondary_ip_range_pods_name = "pods-range"
 
-secondary_ip_range_services_name = "services-range"
+# secondary_ip_range_services_name = "services-range"
 
-master_ipv4_cidr_block = "172.16.0.0/28"
+# master_ipv4_cidr_block = "172.16.0.0/28"
 
 disk_type = "pd-standard"  
 
@@ -65,7 +65,6 @@ max_node_count = 2
 
 authorized-net-cidr = "10.0.0.0/16"
 
-authorized-net-name = "master-authorized-network-name"
 
 namespace-name = "gcp-api-infra-namespace"
 
