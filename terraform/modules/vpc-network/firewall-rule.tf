@@ -17,3 +17,19 @@ resource "google_compute_firewall" "allow_internal" {
     google_compute_network.vpc-network
   ]
 }
+
+# Allows external access from anywhere to the api server
+resource "google_compute_firewall" "allow-external" {
+  name    = "allow-external-to-api"
+  network = google_compute_network.vpc-network.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["443"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]  
+    depends_on = [
+    google_compute_network.vpc-network
+  ]
+}

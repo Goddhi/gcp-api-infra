@@ -53,7 +53,6 @@ resource "google_container_cluster" "primary" {
   network    = var.vpc-name
   subnetwork = var.private-subnet-name
 
-  # Enable private cluster
 
 
 
