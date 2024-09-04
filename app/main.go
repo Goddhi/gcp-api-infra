@@ -28,10 +28,8 @@ response := TimeResponse{
 CurrentTime: currentTime,
 }
 
-// Set the response header to indicate that the content type is JSON.
 w.Header().Set("Content-Type", "application/json")
 
-// Encode the response as JSON and send it to the client.
 json.NewEncoder(w).Encode(response)
 }
 
