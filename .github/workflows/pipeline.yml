@@ -46,6 +46,7 @@ jobs:
 
   terraform:
     name: 'Terraform'
+    needs: build_go_app
     runs-on: ubuntu-latest
 
     steps:

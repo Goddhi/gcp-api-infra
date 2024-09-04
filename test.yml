@@ -5,6 +5,7 @@
 #   --member="serviceAccount:gcp-api-infrastructure@wide-axiom-428919-s0.iam.gserviceaccount.com" \
 #   --role="roles/"
 
+# gsutil iam ch serviceAccount:gcp-api-infrastructure@wide-axiom-428919-s0.iam.gserviceaccount.com:legacyBucketWriter gs://gcp-api-infrastrtucture-bucket
 
 # gcloud projects add-iam-policy-binding &lt;project-name&gt; --member serviceAccount:&lt;service account name&gt;@&lt;project-name&gt;.iam.gserviceaccount.com --role roles/compute.admin                             
 # gcloud projects add-iam-policy-binding &lt;project-name&gt; --member serviceAccount:&lt;service account name&gt;@&lt;project-name&gt;.iam.gserviceaccount.com --role roles/iam.serviceAccountUser                             
