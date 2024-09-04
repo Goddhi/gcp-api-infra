@@ -37,12 +37,12 @@ jobs:
       - name: Build and Push Docker Image
         working-directory: ./app  # Navigate to the app directory
         run: |
-          docker build -t myusername/myapp:${{ github.sha }} .
-          docker push myusername/myapp:${{ github.sha }}
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }} .
+          docker push ${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }}
 
       - name: Update Terraform Variables with Image Name
         run: |
-          echo "app-image = \"myusername/myapp:${{ github.sha }}\"" > ./terraform/terraform.auto.tfvars
+          echo "app-image = \"${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }}\"" > ./terraform/terraform.auto.tfvars
 
   terraform:
     name: 'Terraform'
