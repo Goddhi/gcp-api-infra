@@ -43,17 +43,17 @@ cluster_name = "gke-cluster"
 
 node-pool-name = "primary-node-pool"
 
-machine_type = "e2-small"
+machine_type = "e2-medium"
 
-# secondary_ip_range_services_cidr = "192.168.0.0/24"
+secondary_ip_range_services_cidr = "192.168.0.0/24"
 
-# secondary_ip_range_pods_cidr = "192.168.1.0/24"
+secondary_ip_range_pods_cidr = "192.168.1.0/24"
 
-# secondary_ip_range_pods_name = "pods-range"
+secondary_ip_range_pods_name = "pods-range"
 
-# secondary_ip_range_services_name = "services-range"
+secondary_ip_range_services_name = "services-range"
 
-# master_ipv4_cidr_block = "172.16.0.0/28"
+master_ipv4_cidr_block = "172.16.0.0/28"
 
 disk_type = "pd-standard"  
 

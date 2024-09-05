@@ -55,3 +55,5 @@ Configures firewall rules to control traffic to and from the network.
 nat-gateway.tf: Sets up Network Address Translation (NAT) for enabling instances without public IP addresses to access the internet.
 #### router.tf: 
 Defines  router configurations required for traffic within the VPC
+
+

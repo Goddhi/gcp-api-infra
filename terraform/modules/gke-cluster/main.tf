@@ -64,11 +64,11 @@ resource "google_container_cluster" "primary" {
 
 
 
-  # # IP allocation for Pods and Services
-  # ip_allocation_policy {
-  #   cluster_secondary_range_name  = var.secondary_ip_range_pods_name
-  #   services_secondary_range_name = var.secondary_ip_range_services_name
-  # }
+  # IP allocation for Pods and Services
+  ip_allocation_policy {
+    cluster_secondary_range_name  = var.secondary_ip_range_pods_name
+    services_secondary_range_name = var.secondary_ip_range_services_name
+  }
     deletion_protection = false
 
   #     depends_on = [
@@ -107,13 +107,15 @@ resource "google_container_node_pool" "primary_nodes" {
   }
 }
 
+data "google_client_config" "default" {}
 provider "kubernetes" {
-  host                   = google_container_cluster.primary.endpoint
+  host                   = "https://${google_container_cluster.primary.endpoint}"
   token                  = data.google_client_config.default.access_token
   cluster_ca_certificate = base64decode(google_container_cluster.primary.master_auth.0.cluster_ca_certificate)
 }
+
+
 # Add the google_client_config data source
-data "google_client_config" "default" {}
 
 resource "kubernetes_namespace" "gcp_api_infra_namespace" {
   metadata {
@@ -176,3 +178,7 @@ resource "kubernetes_service" "gcp_api_infra_service" {
   }
 
 }
+
+
+
+

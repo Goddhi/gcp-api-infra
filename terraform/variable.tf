@@ -110,31 +110,31 @@ variable "machine_type" {
   
 }
 
-# variable "secondary_ip_range_services_cidr" {
-#     type = string
-#     description = "ip range for gke services" 
-# }
+variable "secondary_ip_range_services_cidr" {
+    type = string
+    description = "ip range for gke services" 
+}
 
-# variable "secondary_ip_range_pods_cidr" {
-#     type = string
-#     description = "ip range for gke pods" 
-# }
+variable "secondary_ip_range_pods_cidr" {
+    type = string
+    description = "ip range for gke pods" 
+}
 
-# variable "secondary_ip_range_services_name" {
-#     type = string
-#     description = " secondary ip range name for gke services" 
-# }
+variable "secondary_ip_range_services_name" {
+    type = string
+    description = " secondary ip range name for gke services" 
+}
 
-# variable "secondary_ip_range_pods_name" {
-#     type = string
-#     description = " secondary ip range name for gke pods" 
-# }
+variable "secondary_ip_range_pods_name" {
+    type = string
+    description = " secondary ip range name for gke pods" 
+}
 
-# variable "master_ipv4_cidr_block" {
-#   type = string
-#   description = "master ip adress"
+variable "master_ipv4_cidr_block" {
+  type = string
+  description = "master ip adress"
   
-# }
+}
 variable "disk_type" {
   type = string
   description = "node disk type"
