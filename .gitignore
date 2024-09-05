@@ -1,0 +1,5 @@
+tooling.txt
+terraform.lock.hcl.terraform.lock.hcl
+gcp-api-infrastructure.json
+terraform.tfstate
+terraform.tfstate.backup
