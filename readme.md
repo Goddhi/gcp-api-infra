@@ -57,3 +57,4 @@ nat-gateway.tf: Sets up Network Address Translation (NAT) for enabling instances
 Defines  router configurations required for traffic within the VPC
 
 
+gsutil iam ch serviceAccount:api-sc@wide-axiom-428919-s0.iam.gserviceaccount.com:roles/storage.legacyBucketWriter gs://gcp-api-infrastrtucture-bucket
