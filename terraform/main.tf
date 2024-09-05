@@ -1,5 +1,4 @@
 provider "google" {
-  credentials = file("api-sc.json")
   project     = var.project
   region      = var.region
   zone        = var.zone
